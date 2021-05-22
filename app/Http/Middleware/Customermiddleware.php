@@ -1,0 +1,32 @@
+<?php
+
+namespace App\Http\Middleware;
+
+use Closure;
+use Illuminate\Support\Facades\Auth;
+
+class Customermiddleware
+{
+    /**
+     * Handle an incoming request.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \Closure  $next
+     * @return mixed
+     */
+    public function handle($request, Closure $next)
+    {
+        if(Auth::check() && Auth::user()->usertype =='customer'){
+            return $next($request);
+            //dd('custeomer login');
+        
+        }
+       
+        else{
+           return redirect('login_check');
+           //dd('customer not login');
+           
+        }
+        
+    }
+}
